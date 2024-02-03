@@ -1,24 +1,26 @@
 /* Общие классы */
 .panel {
-    padding: 10px;
+    padding: 20px;
     color: #c2c2c2;
 
     text-align: center;
 
-    display: none;
+    display: flex;
+    flex-direction: column;
 
     border-radius: 15px;
-    background: #10101391;
+    background: #9a9aa591;
 }
 
 .button {
+    margin: 10px;
     border-radius: 15px;
     background: #101013dc;
     border: none;
     color: #c2c2c2;
     padding: 15px 30px;
 
-    font-size: min(max(1.5vw, 1.8vw), 1.5vw);
+    font-size: min(20px, 10vw);
 
     -moz-user-select: none;    -o-user-select: none;    -khtml-user-select: none;    -webkit-user-select: none;    user-select: none;
 
