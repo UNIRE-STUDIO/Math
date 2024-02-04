@@ -9,26 +9,26 @@
     flex-direction: column;
 
     border-radius: 15px;
-    background: #9a9aa591;
+    background: #97979e91;
 }
 
 .button {
     margin: 10px;
     border-radius: 15px;
-    background: #101013dc;
+    background: #dfdfe6dc;
     border: none;
-    color: #c2c2c2;
+    color: #333333;
     padding: 15px 30px;
 
     font-size: min(20px, 10vw);
 
     -moz-user-select: none;    -o-user-select: none;    -khtml-user-select: none;    -webkit-user-select: none;    user-select: none;
 
-    box-shadow:0px -2px 0 #e3ed04 inset;
+    box-shadow:0px -2px 0 #1b1b1b inset;
     transition:all 0.3s;
 }
 .button:hover{
-    box-shadow:0px -4px 0 #e3ed04 inset;
+    box-shadow:0px -4px 0 #1b1b1b inset;
     cursor: pointer;
 }
 
@@ -42,18 +42,34 @@
     margin-bottom: 10px;
     padding: 0 40px;
 }
+
+
 /* ------------------------*/
 
 body{
     margin: 0px;
     font-family: sans-serif;
-}
-#page {
     background: #d3dce1;
-    width: 100vw;
+    width: 80vw;
     height: 100vh;
+    padding: 0 10vw;
+}
 
+#page {
+
+}
+
+#header-panel{
+    height: 10vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+}
+
+.h-wrapper{
+    font-size: smaller;
+}
+
+.back-button-wrapper,
+.right-part{
+    flex: 1;
 }

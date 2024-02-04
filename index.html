@@ -26,12 +26,24 @@
         <meta name="viewport" content="user-scalable=no">
     </head>
     <body>
+        <div id="header-panel">
+            <div class="back-button-wrapper">
+                <button class="button" id="back-button" name="back" type="button">⬅</button>
+            </div>
+            <div class="h-wrapper">
+                <h1 id="header-label">Математические игры</h1>
+                <h1 id="select-level-label">Выберите уровень</h1>
+            </div>
+            <div class="right-part">
+
+            </div>
+        </div>
         <div id="page">
-                <div class="panel" id="Menu">
-                    <button class="button" id="levels-button" name="levels-button" type="button">Уровни</button>
-                    <button class="button" name="" type="button">???</button>
-                    <button class="button" name="" type="button">???</button>
-                </div>
+            <div class="panel" id="main-menu">
+                <button class="button" id="levels-button" name="levels-button" type="button">Уровни</button>
+                <button class="button" name="" type="button">???</button>
+                <button class="button" name="" type="button">???</button>
+            </div>
         </div>
         <script type="module" src="assets/game.js"></script>
     </body>
