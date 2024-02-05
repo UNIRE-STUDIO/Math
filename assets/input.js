@@ -6,6 +6,7 @@ export default class Input
     {
         document.getElementById("levels-button").onclick = () => this.levelsButton_click();
         document.getElementById("back-button").onclick = () => this.backButton_click();
+        document.getElementsByClassName("levels") // туууут
         this.changeState = changeState;
         this.gameStates = gameStates;
     }
@@ -19,4 +20,6 @@ export default class Input
     {
         this.changeState(this.gameStates.LEVEL_SELECTION);
     }
+
+    
 }

@@ -43,6 +43,10 @@
     padding: 0 40px;
 }
 
+.panel-wrapper{
+    padding: 10vh 5vw;
+}   
+
 
 /* ------------------------*/
 
@@ -50,9 +54,9 @@ body{
     margin: 0px;
     font-family: sans-serif;
     background: #d3dce1;
-    width: 80vw;
+    width: 90vw;
     height: 100vh;
-    padding: 0 10vw;
+    padding: 0 5vw;
 }
 
 #page {

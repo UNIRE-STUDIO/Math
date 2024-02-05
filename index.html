@@ -29,20 +29,35 @@
         <div id="header-panel">
             <div class="back-button-wrapper">
                 <button class="button" id="back-button" name="back" type="button">⬅</button>
+                <button class="button" id="pause-button" name="pause" type="button">⬅</button>
             </div>
             <div class="h-wrapper">
                 <h1 id="header-label">Математические игры</h1>
                 <h1 id="select-level-label">Выберите уровень</h1>
+                <h1 id="score-label">0</h1>
             </div>
             <div class="right-part">
-
+                <p id="level-label">Уровень 1/10</p>
             </div>
         </div>
         <div id="page">
-            <div class="panel" id="main-menu">
-                <button class="button" id="levels-button" name="levels-button" type="button">Уровни</button>
-                <button class="button" name="" type="button">???</button>
-                <button class="button" name="" type="button">???</button>
+            <div class="panel-wrapper">
+                <div class="panel" id="main-menu">
+                    <button class="button" id="levels-button" name="levels-button" type="button">Уровни</button>
+                    <button class="button" name="" type="button">???</button>
+                    <button class="button" name="" type="button">???</button>
+                </div>
+                <div id="levels-grid">
+                    <button class="button levels" id="add-level-button" name="" type="button">a+b=?</button>
+                    <button class="button levels" id="sub-level-button" name="" type="button">a-b=?</button>
+                    <button class="button levels" id="add-sub-level-button" name="" type="button">a±b=?</button>
+                    <button class="button levels" id="add-sub-unknown-level-button" name="" type="button">a±?=c</button>
+                </div>
+            </div>
+            <div id="game-panel">
+                <div id="timer"></div>
+                <div id="expression"></div>
+                <div id="keyboard"></div>
             </div>
         </div>
         <script type="module" src="assets/game.js"></script>

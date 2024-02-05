@@ -1,6 +1,6 @@
 export default class UI_Element
 {
-    constructor(elements, isActiveStart)
+    constructor(elements, isActiveStart = false)
     {
         this.elements = elements;
         this.isActiveStart = isActiveStart;
@@ -17,17 +17,19 @@ export default class UI_Element
 
     turnOn()
     {
-        if (this.isActive) return;
-        for (let i = 0; i < this.elements.lenght; i++) {
-            this.elements[i].style.display = "block";
+        if (this.isActive == true) return;
+        for (let i = 0; i < this.elements.length; i++) {
+            this.elements[i].style.display = "";
         }
+        this.isActive = true;
     }
 
     turnOff()
     {
-        if (!this.isActive) return;
-        for (let i = 0; i < this.elements.lenght; i++) {
+        if (this.isActive == false) return;
+        for (let i = 0; i < this.elements.length; i++) {
             this.elements[i].style.display = "none";
         }
+        this.isActive = false;
     }
 }
