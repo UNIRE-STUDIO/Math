@@ -11,31 +11,40 @@ export default class Game
         this.currentState;
         this.changeState(0);
         new GameLoop(this.update.bind(this), this.render.bind(this));
-        new Input(GameStates, this.changeState.bind(this));
+        new Input(GameStates, this.changeState.bind(this), this.turnOnLevel.bind(this));
     }
 
     changeState(state)
     {
         switch (state) {
             case GameStates.MENU:
-                this.ui_controller.turnOnSection(0);
+                this.ui_controller.turnOnSection(GameStates.MENU);
                 this.currentState = GameStates.MENU;
             break;
             case GameStates.LEVEL_SELECTION:
-                this.ui_controller.turnOnSection(1);
+                this.ui_controller.turnOnSection(GameStates.LEVEL_SELECTION);
                 this.currentState = GameStates.LEVEL_SELECTION;
             break;
             case GameStates.PLAY:
-            
+                this.ui_controller.turnOnSection(GameStates.PLAY);
+                this.ui_controller.startTimer();
+                this.currentState = GameStates.PLAY;
             break;
             case GameStates.PAUSE:
-            
+                this.ui_controller.turnOnSection(GameStates.PAUSE);
+                this.currentState = GameStates.PAUSE;
             break;
         
             default:
                 if (this.currentState == GameStates.LEVEL_SELECTION) this.changeState(GameStates.MENU);
+                if (this.currentState == GameStates.PAUSE) this.changeState(GameStates.LEVEL_SELECTION);
                 break;
         }
+    }
+
+    turnOnLevel(id)
+    {
+        this.changeState(GameStates.PLAY);
     }
 
     update()

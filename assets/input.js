@@ -2,13 +2,17 @@
 
 export default class Input
 {
-    constructor(gameStates, changeState)
+    constructor(gameStates, changeState, turnOnLevel)
     {
         document.getElementById("levels-button").onclick = () => this.levelsButton_click();
         document.getElementById("back-button").onclick = () => this.backButton_click();
-        document.getElementsByClassName("levels") // туууут
+        let levelsButton = document.getElementsByClassName("levels");
+        for (let i = 0; i < levelsButton.length; i++) {
+            levelsButton[i].onclick = () => this.levels_click(i);
+        }
         this.changeState = changeState;
         this.gameStates = gameStates;
+        this.turnOnLevel = turnOnLevel;
     }
 
     backButton_click()
@@ -19,6 +23,11 @@ export default class Input
     levelsButton_click()
     {
         this.changeState(this.gameStates.LEVEL_SELECTION);
+    }
+
+    levels_click(id)
+    {
+        this.turnOnLevel(id);
     }
 
     

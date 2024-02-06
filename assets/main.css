@@ -44,7 +44,7 @@
 }
 
 .panel-wrapper{
-    padding: 10vh 5vw;
+    padding: 0 5vw;
 }   
 
 
@@ -67,13 +67,31 @@ body{
     height: 10vh;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .h-wrapper{
+    flex: 1;
     font-size: smaller;
+    text-align: center;
 }
 
-.back-button-wrapper,
 .right-part{
     flex: 1;
+    text-align: right;
+}
+
+.back-button-wrapper{
+    flex: 1;
+}
+
+/* ------------------------*/
+
+#timer-wrapper{
+    height: 160px;
+}
+
+.progress-bar{
+    height: 5px;
+    background: #1da1f2;
 }
