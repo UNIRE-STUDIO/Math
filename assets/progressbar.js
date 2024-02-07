@@ -1,50 +1,32 @@
 //helper function-> return <DOMelement>
-export function elt(type, prop, ...childrens) {
-    let elem = document.createElement(type);
-    if (prop) Object.assign(elem, prop);
-    for (let child of childrens) {
-      if (typeof child == "string") elem.appendChild(document.createTextNode(child));
-      else elem.appendChild(elem);
-    }
-    return elem;
-}
 
 export default class ProgressBar {
-    constructor(now, min, max, options) {
-      this.dom = elt("div", {
-        className: "progress-bar"
-      });
-      this.min = min;
-      this.max = max;
+    constructor(max, now, tag) {
       this.intervalCode = 0;
       this.now = now;
+      this.max = max;
+      this.object = document.getElementById(tag);
       this.syncState();
-      if(options.parent){
-        document.querySelector(options.parent).appendChild(this.dom);
-      } 
-      else document.body.appendChild(this.dom)
     }
   
     syncState() {
-      this.dom.style.width = this.now + "%";
+      this.object.style.width = (this.now / this.max * 100) + "%";
     }
   
-    startTo(step, time) {
+    startTo(step = 0.1) {
       if (this.intervalCode !== 0) return;
       this.intervalCode = setInterval(() => {
-        if (this.now - step < this.min) {
-          this.now = this.min;
-          this.syncState();
-          clearInterval(this.interval);
-          this.intervalCode = 0;
+        if (this.now - step < 0) 
+        {
+          this.end();
           return;
         }
         this.now -= step;
         this.syncState()
-      }, time)
+      }, 100)
     }
     end() {
-      this.now = this.min;
+      this.now = 0;
       clearInterval(this.intervalCode);
       this.intervalCode = 0;
       this.syncState();

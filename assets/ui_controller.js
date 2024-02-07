@@ -34,16 +34,17 @@ export default class UI_Controller
         this.currentSection = section;
     }
 
-    startTimer(){
-        this.timerBar = new ProgressBar(100, 0, 100, {parent : ".progress-wrapper"});
+    startTimer()
+    {
+        this.timerBar = new ProgressBar(45, 45, "timer-bar");
         //arg1 -> step length
         //arg2 -> time(ms)
-        this.timerBar.startTo(0.1, 100);
-        
-        //end to progress after 5s
-        setTimeout( () => {
-            this.timerBar.end();
-        }, 45000)
+        this.timerBar.startTo();
+    }
+
+    addTimeBonus()
+    {
+
     }
     
 }

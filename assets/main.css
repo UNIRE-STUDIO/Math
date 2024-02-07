@@ -2,6 +2,7 @@
 .panel {
     padding: 20px;
     color: #c2c2c2;
+    width: 400px;
 
     text-align: center;
 
@@ -13,12 +14,12 @@
 }
 
 .button {
-    margin: 10px;
+    margin: 5px;
     border-radius: 15px;
     background: #dfdfe6dc;
     border: none;
     color: #333333;
-    padding: 15px 30px;
+    padding: 16px 20px;
 
     font-size: min(20px, 10vw);
 
@@ -32,19 +33,10 @@
     cursor: pointer;
 }
 
-.horizontal-container
-{
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 45% 45%;
-    gap: 10%;
-    
-    margin-bottom: 10px;
-    padding: 0 40px;
-}
-
 .panel-wrapper{
     padding: 0 5vw;
+    display: flex;
+    justify-content: center;
 }   
 
 
@@ -54,9 +46,7 @@ body{
     margin: 0px;
     font-family: sans-serif;
     background: #d3dce1;
-    width: 90vw;
     height: 100vh;
-    padding: 0 5vw;
 }
 
 #page {
@@ -64,15 +54,16 @@ body{
 }
 
 #header-panel{
-    height: 10vh;
+    padding: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
 }
 
 .h-wrapper{
-    flex: 1;
-    font-size: smaller;
+    flex: 4;
+    font-size: 1.2rem;
     text-align: center;
 }
 
@@ -88,7 +79,19 @@ body{
 /* ------------------------*/
 
 #timer-wrapper{
-    height: 160px;
+    background-color: #e2e2e2;
+    height: 60px;
+    padding: 0 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.progress-wrapper{
+    display: flex;
+    width: 100%;
+    align-items: center;
 }
 
 .progress-bar{
