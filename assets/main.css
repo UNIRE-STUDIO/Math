@@ -58,7 +58,6 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
 }
 
 .h-wrapper{
@@ -80,21 +79,24 @@ body{
 
 #timer-wrapper{
     background-color: #e2e2e2;
-    height: 60px;
+    height: 100px;
     padding: 0 16px;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    justify-content: center;
+    text-align: right;
 }
 
 .progress-wrapper{
-    display: flex;
     width: 100%;
-    align-items: center;
 }
 
 .progress-bar{
     height: 5px;
     background: #1da1f2;
+}
+
+#timer-label{
+    margin: 4px 0;
+    align-self: flex-end;
 }
