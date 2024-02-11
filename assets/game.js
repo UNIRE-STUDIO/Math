@@ -12,6 +12,7 @@ export default class Game
         this.changeState(0);
         new GameLoop(this.update.bind(this), this.render.bind(this));
         new Input(GameStates, this.changeState.bind(this), this.turnOnLevel.bind(this));
+        this.levelManager;
     }
 
     changeState(state)

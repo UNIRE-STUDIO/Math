@@ -1,4 +1,3 @@
-import ProgressBar from "./progressbar.js";
 import UI_Element from "./ui_element.js";
 
 export let UISections = {MENU: 0, LEVEL_SELECTION: 1, PLAY: 2, PAUSE: 3, GAMEOVER: 4, WIN: 5};
@@ -32,19 +31,6 @@ export default class UI_Controller
         });
         this.ui_elements[section].turnOn();
         this.currentSection = section;
-    }
-
-    startTimer()
-    {
-        this.timerBar = new ProgressBar(45, 45, "timer-bar");
-        //arg1 -> step length
-        //arg2 -> time(ms)
-        this.timerBar.startTo();
-    }
-
-    addTimeBonus()
-    {
-
     }
     
 }
