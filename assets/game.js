@@ -29,7 +29,7 @@ export default class Game
             break;
             case GameStates.PLAY:
                 this.ui_controller.turnOnSection(GameStates.PLAY);
-                this.levelManager.startTimer();
+                this.levelManager.startLevel(0);
                 this.currentState = GameStates.PLAY;
             break;
             case GameStates.PAUSE:

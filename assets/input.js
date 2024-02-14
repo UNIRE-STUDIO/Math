@@ -7,7 +7,8 @@ export default class Input
         document.getElementById("levels-button").onclick = () => this.levelsButton_click();
         document.getElementById("back-button").onclick = () => this.backButton_click();
         let levelsButton = document.getElementsByClassName("levels");
-        for (let i = 0; i < levelsButton.length; i++) {
+        for (let i = 0; i < levelsButton.length; i++) 
+        {
             levelsButton[i].onclick = () => this.levels_click(i);
         }
         this.changeState = changeState;
