@@ -1,6 +1,7 @@
 import GameLoop from "./gameLoop.js";
 import Input from "./input.js";
 import UI_Controller from "./ui_controller.js";
+import LevelManager from "./LevelManager/levelManager.js";
 export let GameStates = {MENU: 0, LEVEL_SELECTION: 1, PLAY: 2, PAUSE: 3, GAMEOVER: 4, WIN: 5};
 
 export default class Game
@@ -12,7 +13,7 @@ export default class Game
         this.changeState(0);
         new GameLoop(this.update.bind(this), this.render.bind(this));
         new Input(GameStates, this.changeState.bind(this), this.turnOnLevel.bind(this));
-        this.levelManager;
+        this.levelManager = new LevelManager(); // Создавать сразу?
     }
 
     changeState(state)
@@ -28,7 +29,7 @@ export default class Game
             break;
             case GameStates.PLAY:
                 this.ui_controller.turnOnSection(GameStates.PLAY);
-                this.ui_controller.startTimer();
+                this.levelManager.startTimer();
                 this.currentState = GameStates.PLAY;
             break;
             case GameStates.PAUSE:

@@ -1,37 +1,15 @@
-export default class levelManager
+import Timer from "./timer.js";
+
+export default class LevelManager
 {
     constructor()
     {
-      this.timerBar = new ProgressBar(45, 45, "timer-bar");
-      this.timerBar.startTo();
-    }
-
-    startTo(step = 0.1) 
-    {
-        if (this.intervalCode !== 0) return;
-        this.intervalCode = setInterval(() => {
-          if (this.now - step < 0) 
-          {
-            this.end();
-            return;
-          }
-          this.now -= step;
-          this.syncState()
-        }, 100)
-    }
-    end() {
-    this.now = 0;
-    clearInterval(this.intervalCode);
-    this.intervalCode = 0;
-    this.syncState();
+        this.timer = new Timer(120, 120, "timer-bar", "timer-lable");
     }
 
     startTimer()
     {
-        this.timerBar = new ProgressBar(45, 45, "timer-bar");
-        //arg1 -> step length
-        //arg2 -> time(ms)
-        this.timerBar.startTo();
+        this.timer.startTo();
     }
 
     addTimeBonus()
