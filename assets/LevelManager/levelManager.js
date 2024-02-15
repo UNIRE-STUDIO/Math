@@ -3,7 +3,7 @@ import Timer from "./timer.js";
 
 export default class LevelManager
 {
-    constructor()
+    constructor(input)
     {
         this.timer = new Timer(60, 60, "timer-bar", "timer-lable");
         this.expressionLable = document.getElementById("expression-lable");
@@ -13,6 +13,9 @@ export default class LevelManager
         this.currentLevel;
         this.currentSubLevel;
         this.answer = 0;
+
+        this.input = input;
+        this.input.numKeyEvent = this.setNumKey.bind(this);
     }
 
     startLevel(level)
@@ -53,6 +56,11 @@ export default class LevelManager
 
                 break;
         }
+    }
+
+    setNumKey(num)
+    {
+        
     }
 
     setAnswer()

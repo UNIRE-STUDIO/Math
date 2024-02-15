@@ -12,8 +12,11 @@ export default class Game
         this.currentState;
         this.changeState(0);
         new GameLoop(this.update.bind(this), this.render.bind(this));
-        new Input(GameStates, this.changeState.bind(this), this.turnOnLevel.bind(this));
-        this.levelManager = new LevelManager(); // Создавать сразу?
+        this.input = new Input();
+        this.input.changeStateEvent = this.changeState.bind(this);
+        this.input.turnOnLevelEvent = this.turnOnLevel.bind(this);
+
+        this.levelManager = new LevelManager(this.input); // Создавать сразу?
     }
 
     changeState(state)

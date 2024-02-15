@@ -2,7 +2,7 @@
 
 export default class Input
 {
-    constructor(gameStates, changeState, turnOnLevel)
+    constructor()
     {
         document.getElementById("levels-button").onclick = () => this.levelsButton_click();
         document.getElementById("back-button").onclick = () => this.backButton_click();
@@ -11,25 +11,40 @@ export default class Input
         {
             levelsButton[i].onclick = () => this.levels_click(i);
         }
-        this.changeState = changeState;
-        this.gameStates = gameStates;
-        this.turnOnLevel = turnOnLevel;
+        document.addEventListener('keydown', (e) => this.setKeydown(e)); 
+        document.addEventListener('keyup', (e) => this.setKeyup(e));
+
+        this.changeStateEvent;
+        this.turnOnLevelEvent;
+        this.numKeyEvent;
     }
 
     backButton_click()
     {
-        this.changeState(-1);
+        this.changeStateEvent(-1);
     }
 
     levelsButton_click()
     {
-        this.changeState(this.gameStates.LEVEL_SELECTION);
+        this.changeStateEvent(1); // LEVEL_SELECTION
     }
 
     levels_click(id)
     {
-        this.turnOnLevel(id);
+        this.turnOnLevelEvent(id);
     }
 
+    setKeydown(e)
+    {   
+        if (e.code === 49)
+        {
+            this.getNumKeyEvent(1);
+        }
+    }
+
+    setKeyup(e)
+    {
+
+    }
     
 }
