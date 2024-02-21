@@ -8,6 +8,7 @@ export default class LevelManager
         this.timer = new Timer(60, 60, "timer-bar", "timer-lable");
         this.expressionLable = document.getElementById("expression-lable");
         this.scoreLable = document.getElementById("score-lable");
+        this.answerLable = document.getElementById("answer-lable");
         this.typeOfLevel = {Addition: 0, Subtraction: 1};
         this.score = 0;
         this.currentLevel;
@@ -16,6 +17,7 @@ export default class LevelManager
 
         this.input = input;
         this.input.numKeyEvent = this.setNumKey.bind(this);
+        this.input.backspaceEvent = this.setBackspace.bind(this);
     }
 
     startLevel(level)
@@ -60,7 +62,13 @@ export default class LevelManager
 
     setNumKey(num)
     {
-        
+        this.answerLable.innerHTML += num;
+    }
+
+    setBackspace()
+    {
+        let length = this.answerLable.innerHTML.length;
+        this.answerLable.innerHTML = this.answerLable.innerHTML.slice(0, length-1);
     }
 
     setAnswer()

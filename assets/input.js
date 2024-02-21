@@ -16,7 +16,10 @@ export default class Input
 
         this.changeStateEvent;
         this.turnOnLevelEvent;
+
         this.numKeyEvent;
+        this.backspaceEvent;
+        this.enterEvent;
     }
 
     backButton_click()
@@ -36,9 +39,20 @@ export default class Input
 
     setKeydown(e)
     {   
-        if (e.code === 49)
+        let num = parseInt(e.key);
+        if (!isNaN(num))
         {
-            this.getNumKeyEvent(1);
+            this.numKeyEvent(num);
+        }
+
+        if (e.code === "Backspace")
+        {
+            this.backspaceEvent();
+        }
+
+        if (e.code === "Enter")
+        {
+            this.enterEvent();
         }
     }
 
