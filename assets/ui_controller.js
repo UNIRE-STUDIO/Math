@@ -15,10 +15,11 @@ export default class UI_Controller
                             document.getElementById("select-level-lable"),
                             document.getElementById("levels-grid"),
                             document.getElementById("menu-wrapper")]),
-            new UI_Element([document.getElementById("game-panel"),          // Интерфейс игры
+            new UI_Element([document.getElementById("game-wrapper"),          // Интерфейс игры
                             document.getElementById("level-lable"),
                             document.getElementById("pause-button"),
-                            document.getElementById("score-lable")])];
+                            document.getElementById("score-lable")]),
+            new UI_Element([document.getElementById("pause-wrapper")])];
 
         this.timerBar;
     }

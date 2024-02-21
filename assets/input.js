@@ -11,9 +11,21 @@ export default class Input
         {
             levelsButton[i].onclick = () => this.levels_click(i);
         }
+        document.getElementById("pause-button").onclick = () => this. // <-------------
+
+
         document.addEventListener('keydown', (e) => this.setKeydown(e)); 
         document.addEventListener('keyup', (e) => this.setKeyup(e));
+        for (let i = 0; i < 10; i++) 
+        {
+            document.getElementById("key-"+i).onclick = () => this.setKeydown({key:i});
 
+            // Отменяем действие при фокусировке
+            document.getElementById("key-"+i).addEventListener('keydown', e => {if (e.code == "Enter") e.preventDefault();}); 
+        }
+        document.getElementById("key-b").onclick = () => this.setKeydown({code:"Backspace"});
+        document.getElementById("key-b").addEventListener('keydown', e => {if (e.code == "Enter") e.preventDefault();});
+        
         this.changeStateEvent;
         this.turnOnLevelEvent;
 
@@ -37,6 +49,11 @@ export default class Input
         this.turnOnLevelEvent(id);
     }
 
+    pause_click()
+    {
+
+    }
+
     setKeydown(e)
     {   
         let num = parseInt(e.key);
@@ -44,15 +61,16 @@ export default class Input
         {
             this.numKeyEvent(num);
         }
-
-        if (e.code === "Backspace")
         {
-            this.backspaceEvent();
-        }
+            if (e.code === "Backspace")
+            {
+                this.backspaceEvent();
+            }
 
-        if (e.code === "Enter")
-        {
-            this.enterEvent();
+            if (e.code === "Enter")
+            {
+                this.enterEvent();
+            }
         }
     }
 

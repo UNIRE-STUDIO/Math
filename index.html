@@ -54,7 +54,7 @@
                     <button class="button levels" id="add-sub-unknown-level-button" name="" type="button">a±?=c</button>
                 </div>
             </div>
-            <div id="game-panel">
+            <div id="game-wrapper">
                 <div id="timer-wrapper">
                     <div class="progress-wrapper">
                         <div class="progress-bar" id="timer-bar"></div>
@@ -62,11 +62,11 @@
                     <p id="timer-lable">0:50</p>
                 </div>
                 <div id="expression-wrapper">
-                    <p id="expression-lable">2 + 2 =</p>
-                    <p id="answer-lable">&nbsp;</p>
+                    <pre><p id="expression-lable">2 + 2 = </p></pre>
+                    <p id="answer-lable"></p>
                 </div>
                 <div id="keyboard">
-                    <button class="keyboard-buttons" id="key-1" name="we" type="button">1</button>
+                    <button class="keyboard-buttons" id="key-1" type="button">1</button>
                     <button class="keyboard-buttons" id="key-2" type="button">2</button>
                     <button class="keyboard-buttons" id="key-3" type="button">3</button>
                     <button class="keyboard-buttons" id="key-4" type="button">4</button>
@@ -78,6 +78,14 @@
                     <button class="keyboard-buttons" type="button"></button>
                     <button class="keyboard-buttons" id="key-0" type="button">0</button>
                     <button class="keyboard-buttons" id="key-b" type="button">⌫</button>
+                </div>
+            </div>
+            <div id="pause-wrapper">
+                <p>Пауза</p>
+                <div id="pause-buttons-wrapper">
+                    <button class="keyboard-buttons" id="levels-button" type="button">⌂</button>
+                    <button class="keyboard-buttons" id="resume" type="button">▷</button>
+                    <button class="keyboard-buttons" id="restart" type="button">↺</button>
                 </div>
             </div>
         </div>

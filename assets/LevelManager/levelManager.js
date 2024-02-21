@@ -5,7 +5,8 @@ export default class LevelManager
 {
     constructor(input)
     {
-        this.timer = new Timer(60, 60, "timer-bar", "timer-lable");
+        this.timer = new Timer(45, 45, "timer-bar", "timer-lable");
+        this.timer.timeoutEvent = this.gameOver.bind(this);
         this.expressionLable = document.getElementById("expression-lable");
         this.scoreLable = document.getElementById("score-lable");
         this.answerLable = document.getElementById("answer-lable");
@@ -18,6 +19,7 @@ export default class LevelManager
         this.input = input;
         this.input.numKeyEvent = this.setNumKey.bind(this);
         this.input.backspaceEvent = this.setBackspace.bind(this);
+        this.input.enterEvent = this.setAnswer.bind(this);
     }
 
     startLevel(level)
@@ -34,6 +36,7 @@ export default class LevelManager
 
     nextExpression()
     {
+        this.answerLable.innerHTML = "";
         let max;
         let second;
         let first;
@@ -47,11 +50,10 @@ export default class LevelManager
                 // this.expressionLable.innerHTML = first + " + " + second + " = ";
                 // console.log(this.answer);
                 max = (this.currentLevel + 2) * 10 - 1;
-                this.answer = randomRange(1, max);
+                this.answer = randomRange(2, max);
                 first = randomRange(1, this.answer);
                 second = this.answer - first;
                 this.expressionLable.innerHTML = first + " + " + second + " = ";
-                console.log(this.answer);
                 break;
         
             case this.typeOfLevel.Addition:
@@ -62,7 +64,13 @@ export default class LevelManager
 
     setNumKey(num)
     {
+        if (this.answerLable.innerHTML.length > 2) return; // 8 с учётом символов пробела
         this.answerLable.innerHTML += num;
+
+        if (this.answerLable.innerHTML.length >= this.answer.toString().length)
+        {
+            this.setAnswer();
+        }
     }
 
     setBackspace()
@@ -73,6 +81,20 @@ export default class LevelManager
 
     setAnswer()
     {
+        if (this.answer == this.answerLable.innerHTML) // Правильный ответ
+        {
+            this.nextExpression();
+            this.timer.addTime(5);
+        }
+        else
+        {
+            this.nextExpression();
+            this.timer.addTime(-5);
+        }
+    }
 
+    gameOver()
+    {
+        console.log("gameover");
     }
 }

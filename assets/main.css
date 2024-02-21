@@ -77,7 +77,7 @@ body{
 }
 /* ------------------------*/
 
-#game-panel{
+#game-wrapper{
     height: calc(100% - 96px);
     display: flex;
     flex-direction: column;
@@ -117,7 +117,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 32px;
+    font-size: 40px;
 }
 
 #answer-lable{
@@ -139,11 +139,16 @@ body{
     background: #dfdfe6dc;
     border: none;
     color: #333333;
-    padding: 16px 20px;
 
     -moz-user-select: none;    -o-user-select: none;    -khtml-user-select: none;    -webkit-user-select: none;    user-select: none;
 }
 
 .keyboard-buttons:hover{
     cursor: pointer;
+}
+
+.keyboard-buttons:focus
+{
+    outline: none;
+    box-shadow: none;
 }

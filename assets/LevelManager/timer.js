@@ -10,6 +10,7 @@ export default class Timer
         this.now = now;
         this.max = max;
         this.syncState();
+        this.timeoutEvent;
     }
 
     syncState()
@@ -31,11 +32,30 @@ export default class Timer
           this.syncState();
         }, 1000)
     }
+
+    addTime(time)
+    {
+        if (this.now + time > this.max)
+        {
+            this.now = this.max;
+            return;
+        }
+        if (time < 0 && this.now + time <= 0)
+        {
+            this.end();
+            return;
+        }
+        this.now += time;
+        this.syncState();
+    }
+
     end() 
     {
         this.now = 0;
+        this.syncState();
         clearInterval(this.intervalCode);
         this.intervalCode = 0;
+        this.timeoutEvent();
     }
 
 }
