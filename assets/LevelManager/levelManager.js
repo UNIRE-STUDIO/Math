@@ -20,6 +20,9 @@ export default class LevelManager
         this.input.numKeyEvent = this.setNumKey.bind(this);
         this.input.backspaceEvent = this.setBackspace.bind(this);
         this.input.enterEvent = this.setAnswer.bind(this);
+
+        this.isLockInputKey = false;
+        this.isPause = false;
     }
 
     startLevel(level)
@@ -36,6 +39,7 @@ export default class LevelManager
 
     nextExpression()
     {
+        this.isLockInputKey = false;
         this.answerLable.innerHTML = "";
         let max;
         let second;
@@ -64,7 +68,7 @@ export default class LevelManager
 
     setNumKey(num)
     {
-        if (this.answerLable.innerHTML.length > 2) return; // 8 с учётом символов пробела
+        if (this.answerLable.innerHTML.length > 3 || this.isLockInputKey || this.isPause) return;
         this.answerLable.innerHTML += num;
 
         if (this.answerLable.innerHTML.length >= this.answer.toString().length)
@@ -75,22 +79,48 @@ export default class LevelManager
 
     setBackspace()
     {
+        if (this.isPause) return;
         let length = this.answerLable.innerHTML.length;
         this.answerLable.innerHTML = this.answerLable.innerHTML.slice(0, length-1);
     }
 
     setAnswer()
     {
+        if (this.isPause) return;
+        this.isLockInputKey = true;
         if (this.answer == this.answerLable.innerHTML) // Правильный ответ
         {
-            this.nextExpression();
+            setTimeout(() => {
+                this.nextExpression();
+            }, 600);
+            
             this.timer.addTime(5);
         }
         else
         {
-            this.nextExpression();
+            setTimeout(() => {
+                this.nextExpression();
+            }, 600);
             this.timer.addTime(-5);
         }
+
+    }
+
+    setPause()
+    {
+        this.isPause = true;
+        this.timer.setPause();
+    }
+
+    setResume()
+    {
+        this.isPause = false;
+        this.timer.startTo();
+    }
+
+    setReset()
+    {
+        this.timer.setReset();
     }
 
     gameOver()

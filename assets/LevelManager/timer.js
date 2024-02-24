@@ -11,6 +11,8 @@ export default class Timer
         this.max = max;
         this.syncState();
         this.timeoutEvent;
+
+        this.isPause = false;
     }
 
     syncState()
@@ -22,6 +24,15 @@ export default class Timer
     startTo(step = 1) 
     {
         if (this.intervalCode !== 0) return;
+        if (this.isPause)
+        {
+            this.isPause = false;
+        }
+        else
+        {
+            this.now = this.max;
+        }
+        this.syncState();
         this.intervalCode = setInterval(() => {
           if (this.now - step < 0) 
           {
@@ -47,6 +58,20 @@ export default class Timer
         }
         this.now += time;
         this.syncState();
+    }
+
+    setPause()
+    {
+        this.isPause = true;
+        clearInterval(this.intervalCode);
+        this.intervalCode = 0;
+    }
+
+    setReset()
+    {
+        clearInterval(this.intervalCode);
+        this.intervalCode = 0;
+        this.isPause = false;
     }
 
     end() 

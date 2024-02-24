@@ -1,4 +1,4 @@
-//GameStates = {MENU: 0, LEVEL_SELECTION: 1, READYTOPLAY: 2, PLAY: 3, PAUSE: 4, GAMEOVER: 5, WIN: 6};
+//GameStates = {MENU: 0, LEVEL_SELECTION: 1, PLAY: 2, PAUSE: 3, GAMEOVER: 5, WIN: 6};
 
 export default class Input
 {
@@ -11,8 +11,7 @@ export default class Input
         {
             levelsButton[i].onclick = () => this.levels_click(i);
         }
-        document.getElementById("pause-button").onclick = () => this. // <-------------
-
+        document.getElementById("pause-button").onclick = () => this.pause_click();
 
         document.addEventListener('keydown', (e) => this.setKeydown(e)); 
         document.addEventListener('keyup', (e) => this.setKeyup(e));
@@ -25,6 +24,12 @@ export default class Input
         }
         document.getElementById("key-b").onclick = () => this.setKeydown({code:"Backspace"});
         document.getElementById("key-b").addEventListener('keydown', e => {if (e.code == "Enter") e.preventDefault();});
+
+        // Pause panel ------------------------------------------------
+        document.getElementById("pause-panel-resume-button").onclick = () => this.resume_click();
+        document.getElementById("pause-panel-levels-button").onclick = () => this.backButton_click();
+        
+        // ------------------------------------------------------------
         
         this.changeStateEvent;
         this.turnOnLevelEvent;
@@ -51,7 +56,12 @@ export default class Input
 
     pause_click()
     {
+        this.changeStateEvent(3);
+    }
 
+    resume_click()
+    {
+        this.changeStateEvent(2);
     }
 
     setKeydown(e)

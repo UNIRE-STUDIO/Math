@@ -28,15 +28,25 @@ export default class Game
             break;
             case GameStates.LEVEL_SELECTION:
                 this.ui_controller.turnOnSection(GameStates.LEVEL_SELECTION);
+                if (this.currentState == GameStates.PAUSE)
+                {
+                    this.levelManager.setReset();
+                }
                 this.currentState = GameStates.LEVEL_SELECTION;
             break;
             case GameStates.PLAY:
                 this.ui_controller.turnOnSection(GameStates.PLAY);
-                this.levelManager.startLevel(0);
+                if (this.currentState != GameStates.PAUSE)
+                    this.levelManager.startLevel(0);
+                else
+                    this.levelManager.setResume();
+
                 this.currentState = GameStates.PLAY;
             break;
             case GameStates.PAUSE:
                 this.ui_controller.turnOnSection(GameStates.PAUSE);
+                this.levelManager.setPause();
+
                 this.currentState = GameStates.PAUSE;
             break;
         
