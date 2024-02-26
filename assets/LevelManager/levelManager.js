@@ -10,11 +10,14 @@ export default class LevelManager
         this.expressionLable = document.getElementById("expression-lable");
         this.scoreLable = document.getElementById("score-lable");
         this.answerLable = document.getElementById("answer-lable");
+        this.subLevelLable = document.getElementById("sub-level-lable");
         this.typeOfLevel = {Addition: 0, Subtraction: 1};
         this.score = 0;
+        
         this.currentLevel;
-        this.currentSubLevel;
+        this.currentSubLevel = 1;
         this.answer = 0;
+        this.countRightAnswer = 0;
 
         this.input = input;
         this.input.numKeyEvent = this.setNumKey.bind(this);
@@ -53,7 +56,7 @@ export default class LevelManager
                 // second = this.answer - first;
                 // this.expressionLable.innerHTML = first + " + " + second + " = ";
                 // console.log(this.answer);
-                max = (this.currentLevel + 2) * 10 - 1;
+                max = (this.currentSubLevel + 1) * 10 - 1;
                 this.answer = randomRange(2, max);
                 first = randomRange(1, this.answer);
                 second = this.answer - first;
@@ -90,6 +93,12 @@ export default class LevelManager
         this.isLockInputKey = true;
         if (this.answer == this.answerLable.innerHTML) // Правильный ответ
         {
+            //this.countRightAnswer++;
+            if (++this.countRightAnswer % 5 == 0)
+            {
+                this.currentSubLevel++;
+                this.subLevelLable.innerHTML = "Уровень:" + this.currentSubLevel + "/10";
+            }
             setTimeout(() => {
                 this.nextExpression();
             }, 600);

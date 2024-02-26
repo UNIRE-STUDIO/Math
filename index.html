@@ -5,7 +5,7 @@
         <script>
             let cssId = 'myCss';  // you could encode the css path itself to generate id..
             const main = 'assets/main.css';
-            const mobileStyle = 'assets/mobile.css';
+            const mobileStyle = 'assets/main.css';
 
             // В зависимости от устройства подключаем разные таблицы стилей
             var uagent = navigator.userAgent.toLowerCase();
@@ -35,9 +35,10 @@
                 <p id="header-lable">Математические игры</p>
                 <p id="select-level-lable">Выберите уровень</p>
                 <p id="score-lable">0</p>
+                <p id="gameover-lable">A+B=?</p>
             </div>
             <div class="right-part">
-                <p id="level-lable">Уровень 1/10</p>
+                <p id="sub-level-lable">Уровень 1/10</p>
             </div>
         </div>
         <div id="page">
@@ -86,6 +87,12 @@
                     <button class="pause-panel-buttons" id="pause-panel-levels-button" type="button">⌂</button>
                     <button class="pause-panel-buttons" id="pause-panel-resume-button" type="button">▷</button>
                     <button class="pause-panel-buttons" id="pause-panel-restart-button" type="button">↺</button>
+                </div>
+            </div>
+            <div id="gameover-wrapper">
+                
+                <div id="gameover-buttons-wrapper">
+
                 </div>
             </div>
         </div>

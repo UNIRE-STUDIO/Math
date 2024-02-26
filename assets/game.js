@@ -21,13 +21,12 @@ export default class Game
 
     changeState(state)
     {
+        if (state != -1) this.ui_controller.turnOnSection(state);
         switch (state) {
             case GameStates.MENU:
-                this.ui_controller.turnOnSection(GameStates.MENU);
                 this.currentState = GameStates.MENU;
             break;
             case GameStates.LEVEL_SELECTION:
-                this.ui_controller.turnOnSection(GameStates.LEVEL_SELECTION);
                 if (this.currentState == GameStates.PAUSE)
                 {
                     this.levelManager.setReset();
@@ -35,7 +34,6 @@ export default class Game
                 this.currentState = GameStates.LEVEL_SELECTION;
             break;
             case GameStates.PLAY:
-                this.ui_controller.turnOnSection(GameStates.PLAY);
                 if (this.currentState != GameStates.PAUSE)
                     this.levelManager.startLevel(0);
                 else
@@ -44,16 +42,18 @@ export default class Game
                 this.currentState = GameStates.PLAY;
             break;
             case GameStates.PAUSE:
-                this.ui_controller.turnOnSection(GameStates.PAUSE);
                 this.levelManager.setPause();
 
                 this.currentState = GameStates.PAUSE;
             break;
-        
-            default:
+            case GameStates.GAMEOVER:
+
+                this.currentState = GameStates.GAMEOVER;
+            break;
+            case -1:
                 if (this.currentState == GameStates.LEVEL_SELECTION) this.changeState(GameStates.MENU);
                 if (this.currentState == GameStates.PAUSE) this.changeState(GameStates.LEVEL_SELECTION);
-                break;
+            break;
         }
     }
 

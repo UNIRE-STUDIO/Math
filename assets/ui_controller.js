@@ -16,10 +16,14 @@ export default class UI_Controller
                             document.getElementById("levels-grid"),
                             document.getElementById("menu-wrapper")]),
             new UI_Element([document.getElementById("game-wrapper"),          // Интерфейс игры
-                            document.getElementById("level-lable"),
+                            document.getElementById("sub-level-lable"),
                             document.getElementById("pause-button"),
                             document.getElementById("score-lable")]),
-            new UI_Element([document.getElementById("pause-wrapper")])];
+            new UI_Element([document.getElementById("pause-wrapper")]),       // Пауза
+            new UI_Element([document.getElementById("back-button"),           // Проигрышь
+                            document.getElementById("gameover-wrapper"),
+                            document.getElementById("gameover-lable")])
+                                                                        ];                                              
 
         this.timerBar;
     }
@@ -33,5 +37,4 @@ export default class UI_Controller
         this.ui_elements[section].turnOn();
         this.currentSection = section;
     }
-    
 }
