@@ -10,13 +10,14 @@ export default class Game
     {
         this.ui_controller = new UI_Controller();
         this.currentState;
-        this.changeState(0);
+        this.changeState(4);
         new GameLoop(this.update.bind(this), this.render.bind(this));
         this.input = new Input();
         this.input.changeStateEvent = this.changeState.bind(this);
         this.input.turnOnLevelEvent = this.turnOnLevel.bind(this);
 
         this.levelManager = new LevelManager(this.input); // Создавать сразу?
+        this.levelManager.gameOverEvent = this.changeState.bind(this, GameStates.GAMEOVER);
     }
 
     changeState(state)

@@ -178,8 +178,54 @@ body{
     color: #333333;
 
     -moz-user-select: none;    -o-user-select: none;    -khtml-user-select: none;    -webkit-user-select: none;    user-select: none;
+    cursor: pointer;
 }
 
 .pause-panel-buttons{
+    
+}
+
+/* -----GameOver--------*/
+
+#gameover-wrapper{
+    height: calc(100% - 96px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+}
+
+#statistics-wrapper{
+    width: 250px;
+}
+
+#gameover-buttons-wrapper{
+    width: 100%;
+    height: 64px;
+    display: flex;
+    column-gap: 4px;
+}
+.gameover-wrapper-buttons{
+    flex: 1;
+
+    background: #87be76dc;
+    border: none;
+    color: #333333;
+
+    -moz-user-select: none;    -o-user-select: none;    -khtml-user-select: none;    -webkit-user-select: none;    user-select: none;
     cursor: pointer;
 }
+.gameover-wrapper-buttons{
+    
+}
+
+#statistics-grid{
+    display: grid;
+    grid-template-columns: auto 48px;
+    grid-template-rows: repeat(3, 1fr);
+    text-align: left;
+    column-gap: 24px;
+}
+
+/* ----------------------*/

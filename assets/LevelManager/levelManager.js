@@ -26,6 +26,8 @@ export default class LevelManager
 
         this.isLockInputKey = false;
         this.isPause = false;
+
+        this.gameOverEvent;
     }
 
     startLevel(level)
@@ -135,5 +137,6 @@ export default class LevelManager
     gameOver()
     {
         console.log("gameover");
+        this.gameOverEvent();
     }
 }
