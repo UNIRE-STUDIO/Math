@@ -10,7 +10,7 @@ export default class Game
     {
         this.ui_controller = new UI_Controller();
         this.currentState;
-        this.changeState(4);
+        this.changeState(0);
         new GameLoop(this.update.bind(this), this.render.bind(this));
         this.input = new Input();
         this.input.changeStateEvent = this.changeState.bind(this);

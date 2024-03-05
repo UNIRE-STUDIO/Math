@@ -16,13 +16,13 @@ export default class UI_Controller
                             document.getElementById("levels-grid"),
                             document.getElementById("menu-wrapper")]),
             new UI_Element([document.getElementById("game-wrapper"),          // Интерфейс игры
-                            document.getElementById("sub-level-lable"),
+                            document.getElementById("sublevel-lable"),
                             document.getElementById("pause-button"),
                             document.getElementById("score-lable")]),
             new UI_Element([document.getElementById("pause-wrapper")]),       // Пауза
             new UI_Element([document.getElementById("back-button"),           // Проигрышь
-                            document.getElementById("gameover-wrapper"),
-                            document.getElementById("gameover-lable")])
+                            document.getElementById("game-over-wrapper"),
+                            document.getElementById("game-over-lable")])
                                                                         ];                                              
 
         this.timerBar;

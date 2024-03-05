@@ -10,10 +10,10 @@ export default class LevelManager
         this.expressionLable = document.getElementById("expression-lable");
         this.scoreLable = document.getElementById("score-lable");
         this.answerLable = document.getElementById("answer-lable");
-        this.subLevelLable = document.getElementById("sub-level-lable");
+        this.sublevelLable = document.getElementById("sublevel-lable");
         this.typeOfLevel = {Addition: 0, Subtraction: 1};
-        this.score = 0;
         
+        this.score = 0;
         this.currentLevel;
         this.currentSubLevel = 1;
         this.answer = 0;
@@ -28,18 +28,29 @@ export default class LevelManager
         this.isPause = false;
 
         this.gameOverEvent;
+        
+        // Game over lables
+        this.recordScoreLable = document.getElementById("record-lable");
+        this.gameOverScoreLable = document.getElementById("game-over-score-lable");
+        this.gameOverSublevelLable = document.getElementById("game-over-sublevel-lable");
+        this.rightAnswerLable = document.getElementById("right-answer-lable");
+        this.wrongAnswerLable = document.getElementById("wrong-answer-lable");
+        this.gameTimeLable = document.getElementById("game-time-lable");
     }
 
     startLevel(level)
     {
         this.currentLevel = level;
+        this.score = 0;
+        this.currentSubLevel = 1;
+        this.answer = 0;
+        this.countRightAnswer = 0;
+
+        this.countRightAnswer;
+        this.sublevelLable.innerHTML = "Уровень:" + this.currentSubLevel + "/10";
+
         this.timer.startTo();
         this.nextExpression();
-    }
-
-    addTimeBonus()
-    {
-
     }
 
     nextExpression()
@@ -58,7 +69,7 @@ export default class LevelManager
                 // second = this.answer - first;
                 // this.expressionLable.innerHTML = first + " + " + second + " = ";
                 // console.log(this.answer);
-                max = (this.currentSubLevel + 1) * 10 - 1;
+                max = (this.currentSubLevel + 1) * 20 - 1;
                 this.answer = randomRange(2, max);
                 first = randomRange(1, this.answer);
                 second = this.answer - first;
@@ -99,7 +110,7 @@ export default class LevelManager
             if (++this.countRightAnswer % 5 == 0)
             {
                 this.currentSubLevel++;
-                this.subLevelLable.innerHTML = "Уровень:" + this.currentSubLevel + "/10";
+                this.sublevelLable.innerHTML = "Уровень:" + this.currentSubLevel + "/10";
             }
             setTimeout(() => {
                 this.nextExpression();
@@ -136,7 +147,9 @@ export default class LevelManager
 
     gameOver()
     {
-        console.log("gameover");
+        console.log("game-over");
+        this.rightAnswerLable.innerHTML = this.countRightAnswer;
+        this.gameOverSublevelLable.innerHTML = this.currentSubLevel + "/10<br/>Уровень";
         this.gameOverEvent();
     }
 }
