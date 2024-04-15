@@ -49,6 +49,7 @@ export default class LevelManager
         this.countRightAnswer;
         this.sublevelLable.innerHTML = "Уровень:" + this.currentSubLevel + "/10";
 
+        this.timer.setReset();
         this.timer.startTo();
         this.nextExpression();
     }
@@ -140,9 +141,9 @@ export default class LevelManager
         this.timer.startTo();
     }
 
-    setReset()
+    setRestart()
     {
-        this.timer.setReset();
+        this.startLevel(this.currentLevel);
     }
 
     gameOver()

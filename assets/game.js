@@ -2,65 +2,62 @@ import GameLoop from "./gameLoop.js";
 import Input from "./input.js";
 import UI_Controller from "./ui_controller.js";
 import LevelManager from "./LevelManager/levelManager.js";
-export let GameStates = {MENU: 0, LEVEL_SELECTION: 1, PLAY: 2, PAUSE: 3, GAMEOVER: 4, WIN: 5};
+export let GameScreens = {MENU: 0, LEVEL_SELECTION: 1, PLAY: 2, PAUSE: 3, GAMEOVER: 4, WIN: 5};
 
 export default class Game
 {
     constructor()
     {
         this.ui_controller = new UI_Controller();
-        this.currentState;
-        this.changeState(0);
+        this.currentScreen;
+        this.changeScreen(0);
         new GameLoop(this.update.bind(this), this.render.bind(this));
         this.input = new Input();
-        this.input.changeStateEvent = this.changeState.bind(this);
+        this.input.changeScreenEvent = this.changeScreen.bind(this);
         this.input.turnOnLevelEvent = this.turnOnLevel.bind(this);
 
         this.levelManager = new LevelManager(this.input); // Создавать сразу?
-        this.levelManager.gameOverEvent = this.changeState.bind(this, GameStates.GAMEOVER);
+        this.levelManager.gameOverEvent = this.changeScreen.bind(this, GameScreens.GAMEOVER);
     }
 
-    changeState(state)
+    // изменить экран игры на указанный + дополнительный параметр для уточнения поведения
+    changeScreen(screen, parameter = 0)
     {
-        if (state != -1) this.ui_controller.turnOnSection(state);
-        switch (state) {
-            case GameStates.MENU:
-                this.currentState = GameStates.MENU;
+        // Если нажата НЕ кнопка назад
+        if (screen != -1) this.ui_controller.turnOnSection(screen);
+        switch (screen) {
+            case GameScreens.MENU:
+                this.currentScreen = GameScreens.MENU;
             break;
-            case GameStates.LEVEL_SELECTION:
-                if (this.currentState == GameStates.PAUSE)
-                {
-                    this.levelManager.setReset();
-                }
-                this.currentState = GameStates.LEVEL_SELECTION;
+            case GameScreens.LEVEL_SELECTION:
+                this.currentScreen = GameScreens.LEVEL_SELECTION;
             break;
-            case GameStates.PLAY:
-                if (this.currentState != GameStates.PAUSE)
-                    this.levelManager.startLevel(0);
-                else
-                    this.levelManager.setResume();
+            case GameScreens.PLAY:
+                if (parameter == 1) this.levelManager.setRestart();
+                else if (parameter == 2) this.levelManager.setResume();
 
-                this.currentState = GameStates.PLAY;
+                this.currentScreen = GameScreens.PLAY;
             break;
-            case GameStates.PAUSE:
+            case GameScreens.PAUSE:
                 this.levelManager.setPause();
 
-                this.currentState = GameStates.PAUSE;
+                this.currentScreen = GameScreens.PAUSE;
             break;
-            case GameStates.GAMEOVER:
+            case GameScreens.GAMEOVER:
 
-                this.currentState = GameStates.GAMEOVER;
+                this.currentScreen = GameScreens.GAMEOVER;
             break;
-            case -1:
-                if (this.currentState == GameStates.LEVEL_SELECTION) this.changeState(GameStates.MENU);
-                if (this.currentState == GameStates.PAUSE) this.changeState(GameStates.LEVEL_SELECTION);
+            case -1: // Если нажата кнопка назад
+                if (this.currentScreen == GameScreens.LEVEL_SELECTION) this.changeScreen(GameScreens.MENU);
+                if (this.currentScreen == GameScreens.PAUSE) this.changeScreen(GameScreens.LEVEL_SELECTION);
             break;
         }
     }
 
     turnOnLevel(id)
     {
-        this.changeState(GameStates.PLAY);
+        this.changeScreen(GameScreens.PLAY);
+        this.levelManager.startLevel(id);
     }
 
     update()

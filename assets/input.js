@@ -1,4 +1,4 @@
-//GameStates = {MENU: 0, LEVEL_SELECTION: 1, PLAY: 2, PAUSE: 3, GAMEOVER: 5, WIN: 6};
+//GameScreens = {MENU: 0, LEVEL_SELECTION: 1, PLAY: 2, PAUSE: 3, GAMEOVER: 5, WIN: 6};
 
 export default class Input
 {
@@ -28,10 +28,11 @@ export default class Input
         // Pause panel ------------------------------------------------
         document.getElementById("pause-panel-resume-button").onclick = () => this.resume_click();
         document.getElementById("pause-panel-levels-button").onclick = () => this.backButton_click();
+        document.getElementById("pause-panel-restart-button").onclick = () => this.restart_click();
         
         // ------------------------------------------------------------
         
-        this.changeStateEvent;
+        this.changeScreenEvent;
         this.turnOnLevelEvent;
 
         this.numKeyEvent;
@@ -41,12 +42,12 @@ export default class Input
 
     backButton_click()
     {
-        this.changeStateEvent(-1);
+        this.changeScreenEvent(-1);
     }
 
     levelsButton_click()
     {
-        this.changeStateEvent(1); // LEVEL_SELECTION
+        this.changeScreenEvent(1); // LEVEL_SELECTION
     }
 
     levels_click(id)
@@ -56,12 +57,17 @@ export default class Input
 
     pause_click()
     {
-        this.changeStateEvent(3);
+        this.changeScreenEvent(3);
+    }
+
+    restart_click()
+    {
+        this.changeScreenEvent(2, 1); // Параметр 1 - начать уровень заново
     }
 
     resume_click()
     {
-        this.changeStateEvent(2);
+        this.changeScreenEvent(2, 2); // Параметр 2 - продолжить игру на уровне с сохранением результата
     }
 
     setKeydown(e)
