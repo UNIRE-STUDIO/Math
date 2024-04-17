@@ -15,6 +15,7 @@ export default class Game
         this.input = new Input();
         this.input.changeScreenEvent = this.changeScreen.bind(this);
         this.input.turnOnLevelEvent = this.turnOnLevel.bind(this);
+        this.input.nextLevelEvent = this.nextLevel.bind(this);
 
         this.levelManager = new LevelManager(this.input); // Создавать сразу?
         this.levelManager.gameOverEvent = this.changeScreen.bind(this, GameScreens.GAMEOVER);
@@ -50,6 +51,7 @@ export default class Game
             case -1: // Если нажата кнопка назад
                 if (this.currentScreen == GameScreens.LEVEL_SELECTION) this.changeScreen(GameScreens.MENU);
                 if (this.currentScreen == GameScreens.PAUSE) this.changeScreen(GameScreens.LEVEL_SELECTION);
+                if (this.currentScreen == GameScreens.GAMEOVER) this.changeScreen(GameScreens.LEVEL_SELECTION);
             break;
         }
     }
@@ -58,6 +60,13 @@ export default class Game
     {
         this.changeScreen(GameScreens.PLAY);
         this.levelManager.startLevel(id);
+    }
+
+    nextLevel()
+    {
+        // Если следующего уровня не существует
+        if (this.levelManager.countLevels >= this.levelManager.currentLevel+1) return;
+        this.turnOnLevel(this.levelManager.currentLevel+1);
     }
 
     update()

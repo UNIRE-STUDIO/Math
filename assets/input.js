@@ -22,15 +22,20 @@ export default class Input
             // Отменяем действие при фокусировке
             document.getElementById("key-"+i).addEventListener('keydown', e => {if (e.code == "Enter") e.preventDefault();}); 
         }
-        document.getElementById("key-b").onclick = () => this.setKeydown({code:"Backspace"});
+        document.getElementById("key-b").onclick = () => this.backspaceEvent();
         document.getElementById("key-b").addEventListener('keydown', e => {if (e.code == "Enter") e.preventDefault();});
-
-        // Pause panel ------------------------------------------------
-        document.getElementById("pause-panel-resume-button").onclick = () => this.resume_click();
-        document.getElementById("pause-panel-levels-button").onclick = () => this.backButton_click();
-        document.getElementById("pause-panel-restart-button").onclick = () => this.restart_click();
         
-        // ------------------------------------------------------------
+        document.getElementById("key-minus").onclick = () => this.minusEvent();
+
+        // Pause wrapper ------------------------------------------------
+        document.getElementById("pause-wrapper-resume-button").onclick = () => this.resume_click();
+        document.getElementById("pause-wrapper-levels-button").onclick = () => this.backButton_click();
+        document.getElementById("pause-wrapper-restart-button").onclick = () => this.restart_click();
+        // --------------------------------------------------------------
+        // Game Over wrapper----------------------------------------------
+        document.getElementById("game-over-wrapper-restart-button").onclick = () => this.restart_click();
+        document.getElementById("game-over-wrapper-next-button").onclick = () => this.nextLevelEvent();
+        // --------------------------------------------------------------
         
         this.changeScreenEvent;
         this.turnOnLevelEvent;
@@ -38,6 +43,8 @@ export default class Input
         this.numKeyEvent;
         this.backspaceEvent;
         this.enterEvent;
+        this.minusEvent;
+        this.nextLevelEvent;
     }
 
     backButton_click()
@@ -83,9 +90,14 @@ export default class Input
                 this.backspaceEvent();
             }
 
-            if (e.code === "Enter")
+            if (e.code === "Enter" || e.code === "NumpadEnter")
             {
                 this.enterEvent();
+            }
+
+            if (e.code === "Minus" || e.code === "NumpadSubtract")
+            {
+                this.minusEvent();
             }
         }
     }
