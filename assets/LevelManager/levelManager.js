@@ -28,6 +28,7 @@ export default class LevelManager
 
         this.isLockInputKey = false;
         this.isPause = false;
+        this.isLevelWithNegativeNum = false;
 
         this.gameOverEvent;
         
@@ -50,8 +51,16 @@ export default class LevelManager
         this.isPause = false;
 
         // На каких уровнях нужно добавить минус в клавиатуру
-        if (level == 1) document.getElementById("key-minus").innerHTML = "-";
-        else document.getElementById("key-minus").innerHTML = "";
+        if (level == 1)
+        {
+            this.isLevelWithNegativeNum = true;
+            document.getElementById("key-minus").innerHTML = "-";
+        }
+        else
+        {
+            this.isLevelWithNegativeNum = false;
+            document.getElementById("key-minus").innerHTML = "";
+        } 
 
         this.countRightAnswer;
         this.sublevelLable.innerHTML = "Уровень:" + this.currentSubLevel + "/10";
@@ -107,7 +116,11 @@ export default class LevelManager
 
     setMinus()
     {
-        if (this.answerLable.innerHTML.length > 4 || this.isLockInputKey || this.isPause || this.answerLable.innerHTML.includes("-")) return;
+        if (this.answerLable.innerHTML.length > 4 
+            || this.isLockInputKey 
+            || this.isPause 
+            || this.answerLable.innerHTML.includes("-")
+            || !this.isLevelWithNegativeNum) return;
         this.answerLable.innerHTML = "-" + this.answerLable.innerHTML;
         if (this.answerLable.innerHTML.length >= this.answer.toString().length)
         {

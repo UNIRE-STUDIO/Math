@@ -65,7 +65,7 @@ export default class Game
     nextLevel()
     {
         // Если следующего уровня не существует
-        if (this.levelManager.countLevels >= this.levelManager.currentLevel+1) return;
+        if ((this.levelManager.currentLevel+1) >= this.levelManager.countLevels) return;
         this.turnOnLevel(this.levelManager.currentLevel+1);
     }
 
