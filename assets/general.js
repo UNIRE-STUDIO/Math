@@ -62,3 +62,8 @@ export function clearCanvas()
 {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
+
+export function getTimeFormat(seconds)
+{
+    return Math.floor(seconds / 60) + ":" + Math.round(seconds % 60);
+}

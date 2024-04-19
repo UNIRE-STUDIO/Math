@@ -1,12 +1,12 @@
-import { randomRange } from "../general.js";
-import Timer from "./timer.js";
+import { randomRange, getTimeFormat } from "../general.js";
+import Сountdown from "./сountdown.js";
 
 export default class LevelManager
 {
     constructor(input)
     {
-        this.timer = new Timer(10, 10, "timer-bar", "timer-lable");
-        this.timer.timeoutEvent = this.gameOver.bind(this);
+        this.сountdown = new Сountdown(10, 10, "timer-bar", "timer-lable");
+        this.сountdown.timeoutEvent = this.gameOver.bind(this);
         this.expressionLable = document.getElementById("expression-lable");
         this.scoreLable = document.getElementById("score-lable");
         this.answerLable = document.getElementById("answer-lable");
@@ -19,6 +19,7 @@ export default class LevelManager
         this.currentSubLevel = 1;
         this.answer = 0;
         this.countRightAnswer = 0;
+        this.countWrongAnswer = 0;
 
         this.input = input;
         this.input.numKeyEvent = this.setNumKey.bind(this);
@@ -48,6 +49,7 @@ export default class LevelManager
         this.currentSubLevel = 1;
         this.answer = 0;
         this.countRightAnswer = 0;
+        this.countWrongAnswer = 0;
         this.isPause = false;
 
         // На каких уровнях нужно добавить минус в клавиатуру
@@ -65,8 +67,8 @@ export default class LevelManager
         this.countRightAnswer;
         this.sublevelLable.innerHTML = "Уровень:" + this.currentSubLevel + "/10";
 
-        this.timer.setReset();
-        this.timer.startTo();
+        this.сountdown.setReset();
+        this.сountdown.startTo();
         this.nextExpression();
     }
 
@@ -141,7 +143,8 @@ export default class LevelManager
         this.isLockInputKey = true;
         if (this.answer == this.answerLable.innerHTML) // Правильный ответ
         {
-            //this.countRightAnswer++;
+            this.score += 10 * this.currentSubLevel;
+            this.scoreLable.innerHTML = this.score;
             if (++this.countRightAnswer % 5 == 0)
             {
                 this.currentSubLevel++;
@@ -151,27 +154,28 @@ export default class LevelManager
                 this.nextExpression();
             }, 600);
             
-            this.timer.addTime(5);
+            this.сountdown.addTime(5);
         }
-        else
+        else    // Неправильный ответ
         {
+            this.countWrongAnswer++;
             setTimeout(() => {
                 this.nextExpression();
             }, 600);
-            this.timer.addTime(-5);
+            this.сountdown.addTime(-5);
         }
     }
 
     setPause()
     {
         this.isPause = true;
-        this.timer.setPause();
+        this.сountdown.setPause();
     }
 
     setResume()
     {
         this.isPause = false;
-        this.timer.startTo();
+        this.сountdown.startTo();
     }
 
     setRestart()
@@ -182,8 +186,12 @@ export default class LevelManager
     gameOver()
     {
         console.log("game-over");
+        this.gameOverScoreLable.innerHTML = this.score;
         this.rightAnswerLable.innerHTML = this.countRightAnswer;
+        this.wrongAnswerLable.innerHTML = this.countWrongAnswer;
         this.gameOverSublevelLable.innerHTML = this.currentSubLevel + "/10<br/>Уровень";
+        this.gameTimeLable.innerHTML = getTimeFormat(this.сountdown.gameTime);
+        
         this.gameOverEvent();
     }
 }

@@ -1,6 +1,7 @@
 import ProgressBar from "./progressbar.js";
+import { getTimeFormat } from "../general.js";
 
-export default class Timer
+export default class Сountdown
 {
     constructor(max, now, barTag, lableTag)
     {
@@ -11,6 +12,7 @@ export default class Timer
         this.max = max;
         this.syncState();
         this.timeoutEvent;
+        this.gameTime = 0;
 
         this.isPause = false;
     }
@@ -18,7 +20,7 @@ export default class Timer
     syncState()
     {
         this.timerBar.syncState((this.now / this.max * 100) + "%");
-        this.lable.innerHTML = Math.floor(this.now / 60) + ":" + Math.round(this.now % 60);
+        this.lable.innerHTML = getTimeFormat(this.now);
     }
     
     startTo(step = 1) 
@@ -39,6 +41,7 @@ export default class Timer
             this.end();
             return;
           }
+          this.gameTime += step;
           this.now -= step;
           this.syncState();
         }, 1000)
@@ -71,6 +74,7 @@ export default class Timer
     {
         clearInterval(this.intervalCode);
         this.intervalCode = 0;
+        this.gameTime = 0;
         this.isPause = false;
     }
 
