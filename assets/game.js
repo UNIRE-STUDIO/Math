@@ -2,6 +2,7 @@ import GameLoop from "./gameLoop.js";
 import Input from "./input.js";
 import UI_Controller from "./ui_controller.js";
 import LevelManager from "./LevelManager/levelManager.js";
+import SaveManager from "./saveManager.js";
 export let GameScreens = {MENU: 0, LEVEL_SELECTION: 1, PLAY: 2, PAUSE: 3, GAMEOVER: 4, WIN: 5};
 
 export default class Game
@@ -11,7 +12,11 @@ export default class Game
         this.ui_controller = new UI_Controller();
         this.currentScreen;
         this.changeScreen(0);
+
+        this.saveManager = new SaveManager(); 
+
         new GameLoop(this.update.bind(this), this.render.bind(this));
+
         this.input = new Input();
         this.input.changeScreenEvent = this.changeScreen.bind(this);
         this.input.turnOnLevelEvent = this.turnOnLevel.bind(this);
@@ -19,6 +24,7 @@ export default class Game
 
         this.levelManager = new LevelManager(this.input); // Создавать сразу?
         this.levelManager.gameOverEvent = this.changeScreen.bind(this, GameScreens.GAMEOVER);
+        this.levelManager.saveManager = this.saveManager;
     }
 
     // изменить экран игры на указанный + дополнительный параметр для уточнения поведения

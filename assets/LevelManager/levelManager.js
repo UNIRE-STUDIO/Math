@@ -1,5 +1,6 @@
 import { randomRange, getTimeFormat } from "../general.js";
 import Сountdown from "./сountdown.js";
+import SaveManager from "../saveManager.js";
 
 export default class LevelManager
 {
@@ -31,7 +32,9 @@ export default class LevelManager
         this.isPause = false;
         this.isLevelWithNegativeNum = false;
 
+        // Присваивает класс Game
         this.gameOverEvent;
+        this.saveManager;
         
         // Game over lables
         this.recordScoreLable = document.getElementById("record-lable");
@@ -145,6 +148,15 @@ export default class LevelManager
         {
             this.score += 10 * this.currentSubLevel;
             this.scoreLable.innerHTML = this.score;
+            
+            // Если рекорд, то сохраняем
+            if (this.score > this.saveManager.records[this.currentLevel])
+            {
+                let newRecords = this.saveManager.records;
+                newRecords[this.currentLevel] = this.score;
+                this.saveManager.saveRecords(newRecords);
+            }
+
             if (++this.countRightAnswer % 5 == 0)
             {
                 this.currentSubLevel++;
@@ -191,6 +203,7 @@ export default class LevelManager
         this.wrongAnswerLable.innerHTML = this.countWrongAnswer;
         this.gameOverSublevelLable.innerHTML = this.currentSubLevel + "/10<br/>Уровень";
         this.gameTimeLable.innerHTML = getTimeFormat(this.сountdown.gameTime);
+        this.recordScoreLable.innerHTML = this.saveManager.records[this.currentLevel];
         
         this.gameOverEvent();
     }
