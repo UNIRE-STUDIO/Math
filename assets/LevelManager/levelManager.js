@@ -6,7 +6,7 @@ export default class LevelManager
 {
     constructor(input)
     {
-        this.сountdown = new Сountdown(10, 10, "timer-bar", "timer-lable");
+        this.сountdown = new Сountdown(45, 45, "timer-bar", "timer-lable");
         this.сountdown.timeoutEvent = this.gameOver.bind(this);
         this.expressionLable = document.getElementById("expression-lable");
         this.scoreLable = document.getElementById("score-lable");
@@ -40,9 +40,12 @@ export default class LevelManager
         this.recordScoreLable = document.getElementById("record-lable");
         this.gameOverScoreLable = document.getElementById("game-over-score-lable");
         this.gameOverSublevelLable = document.getElementById("game-over-sublevel-lable");
+        this.gameOverLabel = document.getElementById("game-over-lable");
         this.rightAnswerLable = document.getElementById("right-answer-lable");
         this.wrongAnswerLable = document.getElementById("wrong-answer-lable");
         this.gameTimeLable = document.getElementById("game-time-lable");
+
+        this.levelLables = ["A+B=?", "A-B=?", "A±B=?"]
     }
 
     startLevel(level)
@@ -109,8 +112,11 @@ export default class LevelManager
     }
 
     setNumKey(num)
-    {
-        if (this.answerLable.innerHTML.length > 3 || this.isLockInputKey || this.isPause) return;
+    {   // Если длина строки больше четырёх или блокировка ввода или пауза или первым (и единственным) знаком стоит ноль
+        if (this.answerLable.innerHTML.length > 4 
+            || this.isLockInputKey 
+            || this.isPause 
+            || this.answerLable.innerHTML === "0") return;
         this.answerLable.innerHTML += num;
 
         if (this.answerLable.innerHTML.length >= this.answer.toString().length)
@@ -125,7 +131,8 @@ export default class LevelManager
             || this.isLockInputKey 
             || this.isPause 
             || this.answerLable.innerHTML.includes("-")
-            || !this.isLevelWithNegativeNum) return;
+            || !this.isLevelWithNegativeNum
+            || this.answerLable.innerHTML === "0") return;
         this.answerLable.innerHTML = "-" + this.answerLable.innerHTML;
         if (this.answerLable.innerHTML.length >= this.answer.toString().length)
         {
@@ -162,18 +169,22 @@ export default class LevelManager
                 this.currentSubLevel++;
                 this.sublevelLable.innerHTML = "Уровень:" + this.currentSubLevel + "/10";
             }
+            this.answerLable.style.color = '#0EAD58';
             setTimeout(() => {
                 this.nextExpression();
-            }, 600);
+                this.answerLable.style.color = '#000000';
+            }, 800);
             
             this.сountdown.addTime(5);
         }
-        else    // Неправильный ответ
+        else    // Неправильный ответ -------------------------------------
         {
             this.countWrongAnswer++;
+            this.answerLable.style.color = '#D02A11';
             setTimeout(() => {
                 this.nextExpression();
-            }, 600);
+                this.answerLable.style.color = '#000000';
+            }, 800);
             this.сountdown.addTime(-5);
         }
     }
@@ -198,12 +209,14 @@ export default class LevelManager
     gameOver()
     {
         console.log("game-over");
+        this.gameOverLabel.innerHTML = this.levelLables[this.currentLevel];
         this.gameOverScoreLable.innerHTML = this.score;
         this.rightAnswerLable.innerHTML = this.countRightAnswer;
         this.wrongAnswerLable.innerHTML = this.countWrongAnswer;
         this.gameOverSublevelLable.innerHTML = this.currentSubLevel + "/10<br/>Уровень";
         this.gameTimeLable.innerHTML = getTimeFormat(this.сountdown.gameTime);
         this.recordScoreLable.innerHTML = this.saveManager.records[this.currentLevel];
+
         
         this.gameOverEvent();
     }

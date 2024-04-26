@@ -1,0 +1,101 @@
+/* Общие классы */
+body{
+    font-size: 40px;
+}
+
+
+.panel {
+    padding: 20px;
+    width: 90vw;
+}
+
+.button {
+    margin: 5px;
+    border-radius: 15px;
+    padding: 24px 32px;
+
+    font-size: 55px;
+}
+
+/* ------------------------*/
+
+#header-panel{
+    height: 128px;
+    padding: 32px;
+}
+
+.h-wrapper{
+    flex: 4;
+    font-size: 3rem;
+    text-align: center;
+}
+/* ------------------------*/
+#levels-grid{
+    display: grid;
+    grid-template-columns : repeat(3, 30vw);
+    grid-template-rows : repeat(6, 200px);
+    gap: 8px;
+}
+
+/* ------------------------*/
+
+#timer-wrapper{
+    height: 200px;
+    padding: 0 40px;
+}
+
+.progress-wrapper{
+    height: 8px;
+}
+
+.progress-bar{
+    height: 8px;
+}
+
+#game-wrapper{
+    height: calc(100% - 192px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#expression-wrapper{
+    height: 200px;
+    font-size: 6rem;
+}
+
+#keyboard{
+    grid-template-rows : repeat(4, 200px);
+}
+
+.keyboard-buttons{
+    font-size: 64px;
+}
+
+/* ------------------------*/
+
+#pause-wrapper{
+    height: calc(100% - 192px);
+    font-size: 100px;
+}
+
+.pause-wrapper-buttons{
+    font-size: 90px;
+    height: 200px;
+    width: 200px;
+    margin: 20px;
+}
+
+/* ------------------------*/
+
+#game-over-wrapper{
+    height: calc(100% - 192px);
+}
+
+#game-over-buttons-wrapper{
+    height: 128px;
+}
+
+.game-over-wrapper-buttons{
+    font-size: 40px;
+}
