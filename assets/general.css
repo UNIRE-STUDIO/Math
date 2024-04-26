@@ -102,6 +102,7 @@ body{
 .progress-bar{
     height: 4px;
     background: #1da1f2;
+    transition: 0.25s;
 }
 
 #timer-lable{
