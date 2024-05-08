@@ -24,7 +24,7 @@
                 }
         </script>
         <!--Запретить масштабирование-->
-        <meta name="viewport" content="user-scalable=no">
+        <meta name="viewport" content="user-scalabel=no">
     </head>
     <body>
         <div id="header-panel">
@@ -33,13 +33,13 @@
                 <button class="button" id="pause-button" name="pause" type="button">❚❚</button>
             </div>
             <div class="h-wrapper">
-                <p id="header-lable">Математические игры</p>
-                <p id="select-level-lable">Выберите уровень</p>
-                <p id="score-lable">0</p>
-                <p id="game-over-lable">A+B=?</p>
+                <p id="header-label">Математические игры</p>
+                <p id="select-level-label">Выберите уровень</p>
+                <p id="score-label">0</p>
+                <p id="game-over-label">A+B=?</p>
             </div>
             <div class="right-part">
-                <p id="sublevel-lable">Уровень 1/10</p>
+                <p id="sublevel-label">Уровень 1/10</p>
             </div>
         </div>
         <div id="page">
@@ -54,8 +54,8 @@
                     <button class="button levels" id="sub-level-button" name="" type="button">a-b=?</button>
                     <button class="button levels" id="add-sub-level-button" name="" type="button">a±b=?</button>
                     <button class="button levels" id="add-sub-unknown-level-button" name="" type="button">a±?=c</button>
-                    <button class="button levels" id="" name="" type="button">a+b+c=?</button>
-                    <button class="button levels" id="" name="" type="button">a+b-c=?</button>
+                    <button class="button levels" id="add-and-add-level-button" name="" type="button">a+b+c=?</button>
+                    <button class="button levels" id="add-and-sub-level-button" name="" type="button">a+b-c=?</button>
                     <button class="button levels" id="" name="" type="button">a×b=?</button>
                     <button class="button levels" id="" name="" type="button">a×b=?</button>
                     <button class="button levels" id="" name="" type="button">a×?=c</button>
@@ -73,11 +73,16 @@
                     <div class="progress-wrapper">
                         <div class="progress-bar" id="timer-bar"></div>
                     </div>
-                    <p id="timer-lable">0:50</p>
+                    <p id="timer-label">0:50</p>
                 </div>
                 <div id="expression-wrapper">
-                    <pre><p id="expression-lable">2 + 2 = </p></pre>
-                    <p id="answer-lable"></p>
+                    <p id="operand1-label"></p>
+                    <pre><p id="operator1-label"></p></pre>
+                    <p id="operand2-label"></p>
+                    <pre><p id="operator2-label"></p></pre>
+                    <p id="operand3-label"></p>
+                    <pre><p> = </p></pre>
+                    <p id="answer-label"></p>
                 </div>
                 <div id="keyboard">
                     <button class="keyboard-buttons" id="key-1" type="button">1</button>
@@ -104,17 +109,17 @@
             </div>
             <div id="game-over-wrapper">
                 <div id="statistics-wrapper">
-                    <p>ЛУЧШИЙ РЕЗУЛЬТАТ&nbsp;&nbsp;<span id="record-lable">0000</span></p>
-                    <p>СЧЁТ&nbsp;&nbsp;<span id="game-over-score-lable">0</span></p>
+                    <p>ЛУЧШИЙ РЕЗУЛЬТАТ&nbsp;&nbsp;<span id="record-label">0000</span></p>
+                    <p>СЧЁТ&nbsp;&nbsp;<span id="game-over-score-label">0</span></p>
                     
-                    <p id="game-over-sublevel-lable">1/10<br/>Уровень</p>
+                    <p id="game-over-sublevel-label">1/10<br/>Уровень</p>
                     <div id="statistics-grid">
                         <p>Правильные ответы</p>
-                        <p id="right-answer-lable">0</p>
+                        <p id="right-answer-label">0</p>
                         <p>Неправильные ответы</p>
-                        <p id="wrong-answer-lable">0</p>
+                        <p id="wrong-answer-label">0</p>
                         <p>Время игры</p>
-                        <p id="game-time-lable">0:51</p>
+                        <p id="game-time-label">0:51</p>
                     </div>
                 </div>
                 <div id="game-over-buttons-wrapper">

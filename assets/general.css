@@ -15,7 +15,7 @@
 .button {
     margin: 5px;
     border-radius: 15px;
-    background: #dfdfe6dc;
+    background: #80c2ffdc;
     border: none;
     color: #333333;
     padding: 16px 20px;
@@ -105,7 +105,7 @@ body{
     transition: 0.25s;
 }
 
-#timer-lable{
+#timer-label{
     margin: 4px 0;
 }
 
@@ -117,7 +117,7 @@ body{
     align-items: center;
 }
 
-#answer-lable{
+#answer-label{
         /* <------- */
 }
 
@@ -221,3 +221,28 @@ body{
 }
 
 /* ----------------------*/
+
+#add-level-button{
+    background: linear-gradient(135deg, #65f77d 0%,#50e26b 40%,#05c532 100%);
+}
+
+#sub-level-button{
+    background: linear-gradient(135deg, #f7f565 0%,#e2e250 40%,#bbc505 100%);
+}
+
+#add-sub-level-button{
+    background: linear-gradient(135deg, #65f7d7 0%,#50e2c5 40%,#05c5a8 100%);
+}
+
+#add-sub-unknown-level-button{
+    background: linear-gradient(135deg, #65d0f7 0%,#50b9e2 40%,#0585c5 100%);
+}
+
+#add-and-add-level-button{
+    background: linear-gradient(135deg, #7d65f7 0%,#6b50e2 40%,#3205c5 100%);
+}
+
+#add-and-sub-level-button{
+    background: linear-gradient(135deg, #6593f7 0%,#507ce2 40%,#0535c5 100%);
+}
+

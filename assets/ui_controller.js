@@ -9,20 +9,20 @@ export default class UI_Controller
         this.currentSection;
         this.ui_elements = [
             new UI_Element([document.getElementById("main-menu"),           // Меню
-                            document.getElementById("header-lable"),
+                            document.getElementById("header-label"),
                             document.getElementById("menu-wrapper")],true),
             new UI_Element([document.getElementById("back-button"),         // Уровни
-                            document.getElementById("select-level-lable"),
+                            document.getElementById("select-level-label"),
                             document.getElementById("levels-grid"),
                             document.getElementById("menu-wrapper")]),
             new UI_Element([document.getElementById("game-wrapper"),          // Интерфейс игры
-                            document.getElementById("sublevel-lable"),
+                            document.getElementById("sublevel-label"),
                             document.getElementById("pause-button"),
-                            document.getElementById("score-lable")]),
+                            document.getElementById("score-label")]),
             new UI_Element([document.getElementById("pause-wrapper")]),       // Пауза
             new UI_Element([document.getElementById("back-button"),           // Проигрышь
                             document.getElementById("game-over-wrapper"),
-                            document.getElementById("game-over-lable")])
+                            document.getElementById("game-over-label")])
                                                                         ];                                              
 
         this.timerBar;

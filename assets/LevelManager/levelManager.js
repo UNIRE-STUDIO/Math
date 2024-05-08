@@ -6,19 +6,24 @@ export default class LevelManager
 {
     constructor(input)
     {
-        this.сountdown = new Сountdown(45, 45, "timer-bar", "timer-lable");
+        this.сountdown = new Сountdown(45, 45, "timer-bar", "timer-label");
         this.сountdown.timeoutEvent = this.gameOver.bind(this);
-        this.expressionLable = document.getElementById("expression-lable");
-        this.scoreLable = document.getElementById("score-lable");
-        this.answerLable = document.getElementById("answer-lable");
-        this.sublevelLable = document.getElementById("sublevel-lable");
-        this.typeOfLevel = {Addition: 0, Subtraction: 1};
+        this.scoreLabel = document.getElementById("score-label");
+        this.sublevelLabel = document.getElementById("sublevel-label");
+        this.typeOfLevel = {Addition: 0, Subtraction: 1, AddOrSub: 2, AddOrSubWithUnknown: 3, AddAndAdd: 4, AddAndSub: 5};
         this.countLevels = 2; // Посчитать автоматически
+
+        this.operand1Label = document.getElementById("operand1-label");
+        this.operator1Label = document.getElementById("operator1-label");
+        this.operand2Label = document.getElementById("operand2-label");
+        this.operator2Label = document.getElementById("operator2-label");
+        this.operand3Label = document.getElementById("operand3-label");
+        this.answerLabel = document.getElementById("answer-label");
         
         this.score = 0;
         this.currentLevel;
         this.currentSubLevel = 1;
-        this.answer = 0;
+        this.rightAnswer = 0;
         this.countRightAnswer = 0;
         this.countWrongAnswer = 0;
 
@@ -31,21 +36,22 @@ export default class LevelManager
         this.isLockInputKey = false;
         this.isPause = false;
         this.isLevelWithNegativeNum = false;
+        this.isLevelWithUnknown = false;
 
         // Присваивает класс Game
         this.gameOverEvent;
         this.saveManager;
         
-        // Game over lables
-        this.recordScoreLable = document.getElementById("record-lable");
-        this.gameOverScoreLable = document.getElementById("game-over-score-lable");
-        this.gameOverSublevelLable = document.getElementById("game-over-sublevel-lable");
-        this.gameOverLabel = document.getElementById("game-over-lable");
-        this.rightAnswerLable = document.getElementById("right-answer-lable");
-        this.wrongAnswerLable = document.getElementById("wrong-answer-lable");
-        this.gameTimeLable = document.getElementById("game-time-lable");
+        // Game over labels
+        this.recordScoreLabel = document.getElementById("record-label");
+        this.gameOverScoreLabel = document.getElementById("game-over-score-label");
+        this.gameOverSublevelLabel = document.getElementById("game-over-sublevel-label");
+        this.gameOverLabel = document.getElementById("game-over-label");
+        this.rightAnswerLabel = document.getElementById("right-answer-label");
+        this.wrongAnswerLabel = document.getElementById("wrong-answer-label");
+        this.gameTimeLabel = document.getElementById("game-time-label");
 
-        this.levelLables = ["A+B=?", "A-B=?", "A±B=?"]
+        this.levelLabels = ["A+B=?", "A-B=?", "A±B=?", "A±?=C", "A+B-C=?"]
     }
 
     startLevel(level)
@@ -53,13 +59,15 @@ export default class LevelManager
         this.currentLevel = level;
         this.score = 0;
         this.currentSubLevel = 1;
-        this.answer = 0;
+        this.rightAnswer = 0;
         this.countRightAnswer = 0;
         this.countWrongAnswer = 0;
         this.isPause = false;
+        this.operand3Label.innerHTML = "";
+        this.operator2Label.innerHTML = "";
 
         // На каких уровнях нужно добавить минус в клавиатуру
-        if (level == 1)
+        if (level == 1 || level == 2 || level == 5)
         {
             this.isLevelWithNegativeNum = true;
             document.getElementById("key-minus").innerHTML = "-";
@@ -70,8 +78,17 @@ export default class LevelManager
             document.getElementById("key-minus").innerHTML = "";
         } 
 
+        if (level == 3)
+        {
+            this.isLevelWithUnknown = true;   
+        }
+        else
+        {
+            this.isLevelWithUnknown = false;
+        }
+
         this.countRightAnswer;
-        this.sublevelLable.innerHTML = "Уровень:" + this.currentSubLevel + "/10";
+        this.sublevelLabel.innerHTML = "Уровень:" + this.currentSubLevel + "/10";
 
         this.сountdown.setReset();
         this.сountdown.startTo();
@@ -81,45 +98,206 @@ export default class LevelManager
     nextExpression()
     {
         this.isLockInputKey = false;
-        this.answerLable.innerHTML = "";
+        this.answerLabel.innerHTML = "";
         let max;
         let second;
         let first;
+        let third;
         switch (this.currentLevel) 
         {
             case this.typeOfLevel.Addition:
-                // max = (this.currentLevel + 2) * 10 - 1;
-                // this.answer = randomRange(1, max);
-                // first = max - this.answer;
-                // second = this.answer - first;
-                // this.expressionLable.innerHTML = first + " + " + second + " = ";
-                // console.log(this.answer);
-                max = this.currentSubLevel * 20 - 1;
-                this.answer = randomRange(2, max);
-                first = randomRange(1, this.answer);
-                second = this.answer - first;
-                this.expressionLable.innerHTML = first + " + " + second + " = ";
+                switch (this.currentSubLevel) {
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                        max = this.currentSubLevel * 20; // 100
+                        break;
+                    case 6: max = 200; break;
+                    case 7: max = 400; break;
+                    case 8: max = 600; break;
+                    case 9: max = 800; break;
+                    case 10: max = 1000; break;
+                    default:
+                        max = this.currentSubLevel * 100;
+                        break;
+                }
+                this.rightAnswer = randomRange(2, max);
+                first = randomRange(1, this.rightAnswer);
+                second = this.rightAnswer - first;
+
+                this.operand1Label.innerHTML = first;
+                this.operator1Label.innerHTML = " + ";
+                this.operand2Label.innerHTML = second;
                 break;
-        
             case this.typeOfLevel.Subtraction:
-                max = this.currentSubLevel * 20;
+                switch (this.currentSubLevel) {
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                        max = this.currentSubLevel * 20; // 100
+                        break;
+                    default:
+                        max = this.currentSubLevel * 40; // 10 lvl = 400 
+                        break;
+                }
                 second = randomRange(1, max);
                 first = randomRange(1, max);
-                this.answer = first - second;
-                this.expressionLable.innerHTML = first + " - " + second + " = ";
+                this.rightAnswer = first - second;
+
+                this.operand1Label.innerHTML = first;
+                this.operator1Label.innerHTML = " - ";
+                this.operand2Label.innerHTML = second;
+                break;
+            case this.typeOfLevel.AddOrSub:
+                switch (this.currentSubLevel) {
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                        max = this.currentSubLevel * 20; // 100
+                        break;
+                    default:
+                        max = this.currentSubLevel * 40; // 10 lvl = 400 
+                        break;
+                }
+                if (randomRange(0,2) == 0){
+                    this.rightAnswer = randomRange(2, max);
+                    first = randomRange(1, this.rightAnswer);
+                    second = this.rightAnswer - first;
+
+                    this.operator1Label.innerHTML = " + ";
+                }
+                else
+                {
+                    second = randomRange(1, max);
+                    first = randomRange(1, max);
+                    this.rightAnswer = first - second;
+
+                    this.operator1Label.innerHTML = " - ";
+                }
+                this.operand1Label.innerHTML = first;
+                this.operand2Label.innerHTML = second;
+                break;
+            case this.typeOfLevel.AddOrSubWithUnknown:
+                switch (this.currentSubLevel) {
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                        max = this.currentSubLevel * 20; // 100
+                        break;
+                    default:
+                        max = this.currentSubLevel * 40; // 10 lvl = 400 
+                        break;
+                }
+                if (randomRange(0,2) == 0){
+                    let answer = randomRange(2, max);
+                    first = randomRange(1, answer);
+                    this.rightAnswer = answer - first;
+
+                    this.operator1Label.innerHTML = " + ";
+                    this.answerLabel.innerHTML = answer;
+                }
+                else
+                {
+                    this.rightAnswer = randomRange(1, max);
+                    first = randomRange(1, max);
+                    let answer = first - this.rightAnswer;
+
+                    this.operator1Label.innerHTML = " - ";
+                    this.answerLabel.innerHTML = answer;
+                }
+                this.operand2Label.innerHTML = "?";
+                this.operand1Label.innerHTML = first;
+                break;
+            case this.typeOfLevel.AddAndAdd:
+                switch (this.currentSubLevel) {
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                        max = this.currentSubLevel * 20; // 100
+                        break;
+                    case 6: max = 200; break;
+                    case 7: max = 400; break;
+                    case 8: max = 600; break;
+                    case 9: max = 800; break;
+                    case 10: max = 1000; break;
+                    default:
+                        max = this.currentSubLevel * 100;
+                        break;
+                }
+                this.rightAnswer = randomRange(3, max);
+                let firstSecondSum = randomRange(2, this.rightAnswer);
+                third = this.rightAnswer - firstSecondSum;
+                first = randomRange(1, firstSecondSum);
+                second = firstSecondSum - first;
+
+                this.operator1Label.innerHTML = " + ";
+                this.operator2Label.innerHTML = " + ";
+                this.operand1Label.innerHTML = first;
+                this.operand2Label.innerHTML = second;
+                this.operand3Label.innerHTML = third;
+                break;
+            case this.typeOfLevel.AddAndSub:
+                switch (this.currentSubLevel) {
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                        max = this.currentSubLevel * 20; // 100
+                        break;
+                    default:
+                        max = this.currentSubLevel * 40; // 10 lvl = 400 
+                        break;
+                }
+                if (randomRange(0,2) == 0){
+                    this.rightAnswer = randomRange(3, max);
+                    let firstSecondSum = randomRange(2, this.rightAnswer);
+                    third = this.rightAnswer - firstSecondSum;
+                    first = randomRange(1, firstSecondSum);
+                    second = firstSecondSum - first;
+
+                    this.operator2Label.innerHTML = " + ";
+                }
+                else {
+                    let firstSecondSum = randomRange(2, max);
+                    third = randomRange(1, max);
+                    this.rightAnswer = firstSecondSum - third;
+                    first = randomRange(1, firstSecondSum);
+                    second = firstSecondSum - first;
+
+                    this.operator2Label.innerHTML = " - ";
+                }
+                this.operator1Label.innerHTML = " + ";
+                this.operand1Label.innerHTML = first;
+                this.operand2Label.innerHTML = second;
+                this.operand3Label.innerHTML = third;
                 break;
         }
     }
 
     setNumKey(num)
-    {   // Если длина строки больше четырёх или блокировка ввода или пауза или первым (и единственным) знаком стоит ноль
-        if (this.answerLable.innerHTML.length > 4 
-            || this.isLockInputKey 
+    {   
+        // Если длина строки больше четырёх или блокировка ввода или пауза или первым (и единственным) знаком стоит ноль
+        let checkLabel = this.isLevelWithUnknown ? this.operand2Label : this.answerLabel;
+        if (checkLabel.innerHTML == "?") this.operand2Label.innerHTML = "";
+        if (this.isLockInputKey 
             || this.isPause 
-            || this.answerLable.innerHTML === "0") return;
-        this.answerLable.innerHTML += num;
+            || checkLabel.innerHTML.length > 4 
+            || checkLabel.innerHTML === "0") return;
 
-        if (this.answerLable.innerHTML.length >= this.answer.toString().length)
+        checkLabel.innerHTML += num;
+
+        if (checkLabel.innerHTML.length >= this.rightAnswer.toString().length)
         {
             this.setAnswer();
         }
@@ -127,14 +305,14 @@ export default class LevelManager
 
     setMinus()
     {
-        if (this.answerLable.innerHTML.length > 4 
+        if (this.answerLabel.innerHTML.length > 4 
             || this.isLockInputKey 
             || this.isPause 
-            || this.answerLable.innerHTML.includes("-")
+            || this.answerLabel.innerHTML.includes("-")
             || !this.isLevelWithNegativeNum
-            || this.answerLable.innerHTML === "0") return;
-        this.answerLable.innerHTML = "-" + this.answerLable.innerHTML;
-        if (this.answerLable.innerHTML.length >= this.answer.toString().length)
+            || this.answerLabel.innerHTML === "0") return;
+        this.answerLabel.innerHTML = "-" + this.answerLabel.innerHTML;
+        if (this.answerLabel.innerHTML.length >= this.rightAnswer.toString().length)
         {
             this.setAnswer();
         }
@@ -143,18 +321,21 @@ export default class LevelManager
     setBackspace()
     {
         if (this.isPause) return;
-        let length = this.answerLable.innerHTML.length;
-        this.answerLable.innerHTML = this.answerLable.innerHTML.slice(0, length-1);
+        let checkLabel = this.isLevelWithUnknown ? this.operand2Label : this.answerLabel;
+        let length = checkLabel.innerHTML.length;
+        checkLabel.innerHTML = checkLabel.innerHTML.slice(0, length-1);
+        if (this.operand2Label.innerHTML.length == "") this.operand2Label.innerHTML = "?";
     }
 
     setAnswer()
     {
         if (this.isPause) return;
         this.isLockInputKey = true;
-        if (this.answer == this.answerLable.innerHTML) // Правильный ответ
+        let checkLabel = this.isLevelWithUnknown ? this.operand2Label : this.answerLabel;
+        if (this.rightAnswer == checkLabel.innerHTML) // Правильный ответ
         {
             this.score += 10 * this.currentSubLevel;
-            this.scoreLable.innerHTML = this.score;
+            this.scoreLabel.innerHTML = this.score;
             
             // Если рекорд, то сохраняем
             if (this.score > this.saveManager.records[this.currentLevel])
@@ -167,12 +348,12 @@ export default class LevelManager
             if (++this.countRightAnswer % 5 == 0)
             {
                 this.currentSubLevel++;
-                this.sublevelLable.innerHTML = "Уровень:" + this.currentSubLevel + "/10";
+                this.sublevelLabel.innerHTML = "Уровень:" + this.currentSubLevel + "/10";
             }
-            this.answerLable.style.color = '#0EAD58';
+            checkLabel.style.color = '#0EAD58';
             setTimeout(() => {
                 this.nextExpression();
-                this.answerLable.style.color = '#000000';
+                checkLabel.style.color = '#000000';
             }, 800);
             
             this.сountdown.addTime(5);
@@ -180,10 +361,10 @@ export default class LevelManager
         else    // Неправильный ответ -------------------------------------
         {
             this.countWrongAnswer++;
-            this.answerLable.style.color = '#D02A11';
+            checkLabel.style.color = '#D02A11';
             setTimeout(() => {
                 this.nextExpression();
-                this.answerLable.style.color = '#000000';
+                checkLabel.style.color = '#000000';
             }, 800);
             this.сountdown.addTime(-5);
         }
@@ -209,13 +390,13 @@ export default class LevelManager
     gameOver()
     {
         console.log("game-over");
-        this.gameOverLabel.innerHTML = this.levelLables[this.currentLevel];
-        this.gameOverScoreLable.innerHTML = this.score;
-        this.rightAnswerLable.innerHTML = this.countRightAnswer;
-        this.wrongAnswerLable.innerHTML = this.countWrongAnswer;
-        this.gameOverSublevelLable.innerHTML = this.currentSubLevel + "/10<br/>Уровень";
-        this.gameTimeLable.innerHTML = getTimeFormat(this.сountdown.gameTime);
-        this.recordScoreLable.innerHTML = this.saveManager.records[this.currentLevel];
+        this.gameOverLabel.innerHTML = this.levelLabels[this.currentLevel];
+        this.gameOverScoreLabel.innerHTML = this.score;
+        this.rightAnswerLabel.innerHTML = this.countRightAnswer;
+        this.wrongAnswerLabel.innerHTML = this.countWrongAnswer;
+        this.gameOverSublevelLabel.innerHTML = this.currentSubLevel + "/10<br/>Уровень";
+        this.gameTimeLabel.innerHTML = getTimeFormat(this.сountdown.gameTime);
+        this.recordScoreLabel.innerHTML = this.saveManager.records[this.currentLevel];
 
         
         this.gameOverEvent();
